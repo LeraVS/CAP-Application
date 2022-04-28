@@ -1,0 +1,21 @@
+{
+    "xsappname": "kitchen-app",
+    "tenant-mode": "dedicated",
+    "scopes": [
+      {
+        "name": "$XSAPPNAME.StoreManager",
+        "description": "StoreManager"
+      }
+    ],
+    "attributes": [],
+    "role-templates": [
+      {
+        "name": "StoreManager",
+        "description": "generated",
+        "scope-references": [
+          "$XSAPPNAME.StoreManager"
+        ],
+        "attribute-references": []
+      }
+    ]
+  }
