@@ -657,3 +657,13 @@ annotate ProductService.Orders with @UI : {
         ]
     }
 };
+
+annotate ProductService.Orders with @Common : {SideEffects #AmountSideEffects : {
+    $Type            : 'Common.SideEffectsType',
+    SourceProperties : [quantity],
+    TargetProperties : [
+        'orderNetAmount',
+        'orderTaxAmount',
+        'orderGrossAmount'
+    ]
+}};

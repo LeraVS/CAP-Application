@@ -129,15 +129,10 @@ module.exports = function (service) {
             return UPDATE(Orders.drafts, ID).with({ calendarYear: calendarYear })
         }
     });
-    this.after('PATCH', 'Orders', (_, req) => {
-        if ('quantity' in req.data) {
-            const { ID, quantity } = req.data
-            return this._update_totals(ID, quantity)
-        }
-    });
     this.after('PATCH', 'Orders', async (_, req) => {
         if (`quantity` in req.data) {
-            const { ID } = req.data
+            const { ID, quantity } = req.data
+            await this._update_totals(ID, quantity)
             const { MarketID } = await SELECT.one`toMarket_ID as MarketID`.from(Orders.drafts, ID)
             const { netAmount, taxAmount, grossAmount, totalQuantity } = await SELECT.one`sum(orderNetAmount) as netAmount,sum(orderTaxAmount) as taxAmount,sum(orderGrossAmount) as grossAmount,sum(quantity) as totalQuantity`.from(Orders.drafts).where({ toMarket_ID: MarketID })
             return UPDATE(Markets.drafts, MarketID).with({ marketTotalQuantity: totalQuantity, marketNetAmount: netAmount, marketTaxAmount: taxAmount, marketGrossAmount: grossAmount })
