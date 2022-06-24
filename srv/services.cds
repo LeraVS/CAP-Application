@@ -3,7 +3,7 @@ using {epam.sap.dev.vv.masterdata} from '../db/master-data';
 using {epam.sap.dev.vv.common as mycommon} from '../db/common';
 using sap.common as common from '@sap/cds/common';
 
-service ProductService {
+service ProductService @(requires: 'authenticated-user') {
     entity Products      as projection on store.Products
     actions {
         @Core.OperationAvailable : in.MoveEnabled
@@ -30,3 +30,7 @@ service ProductService {
 
     entity Currencies    as projection on common.Currencies;
 }
+
+annotate ProductService with @(restrict: [
+    { grant: ['*'], to : [ 'StoreManager' ]}
+]);

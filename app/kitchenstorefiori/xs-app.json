@@ -7,7 +7,7 @@
     "routes": [
         {
             "csrfProtection": false,
-            "source": "^/product/",
+            "source": "^/Product/",
             "destination": "kitchen-app"
         },
         {
